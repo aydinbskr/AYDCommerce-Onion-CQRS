@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AYDCommerce.API.Domain\AYDCommerce.API.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
