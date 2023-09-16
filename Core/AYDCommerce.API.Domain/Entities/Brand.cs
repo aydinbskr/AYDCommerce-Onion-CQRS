@@ -11,6 +11,10 @@ namespace AYDCommerce.API.Domain.Entities
     {
         public required string Name { get; set; }
 
+        public Brand()
+        {
+        }
+
         public Brand(string name)
         {
             Name = name;
