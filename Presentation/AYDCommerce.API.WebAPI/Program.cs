@@ -1,3 +1,5 @@
+using AYDCommerce.API.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +13,8 @@ builder.Configuration
     .SetBasePath(builder.Environment.ContentRootPath)
     .AddJsonFile("appsettings.json", optional: false)
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true);
+
+builder.Services.AddPersistence(builder.Configuration);
 
 var app = builder.Build();
 
