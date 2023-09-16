@@ -15,6 +15,7 @@ namespace AYDCommerce.API.Domain.Entities
 
         public ICollection<Detail> Details { get; set; }
         public ICollection<Product> Products { get; set; }
+        public Category() { }
         public Category(int parentId, string name, int priorty)
         {
             ParentId = parentId;
