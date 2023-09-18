@@ -1,4 +1,6 @@
-﻿using AYDCommerce.API.Persistence.Context;
+﻿using AYDCommerce.API.Application.Interfaces.Repositories;
+using AYDCommerce.API.Persistence.Context;
+using AYDCommerce.API.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +19,8 @@ namespace AYDCommerce.API.Persistence
             services
                 .AddDbContext<AppDbContext>(options =>
                         options.UseSqlServer(configuration.GetConnectionString("Default")));
+
+            services.AddScoped(typeof(IReadRepository<>, typeof(ReadRepository<>));
         }
     }
 }
