@@ -20,7 +20,8 @@ namespace AYDCommerce.API.Persistence
                 .AddDbContext<AppDbContext>(options =>
                         options.UseSqlServer(configuration.GetConnectionString("Default")));
 
-            services.AddScoped(typeof(IReadRepository<>, typeof(ReadRepository<>));
+            services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
+            services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
         }
     }
 }
