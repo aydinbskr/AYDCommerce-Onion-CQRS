@@ -1,6 +1,8 @@
 ﻿using AYDCommerce.API.Application.Interfaces.Repositories;
+using AYDCommerce.API.Application.Interfaces.UnitOfWorks;
 using AYDCommerce.API.Persistence.Context;
 using AYDCommerce.API.Persistence.Repositories;
+using AYDCommerce.API.Persistence.UnitOfWorks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +24,8 @@ namespace AYDCommerce.API.Persistence
 
             services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
             services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }
