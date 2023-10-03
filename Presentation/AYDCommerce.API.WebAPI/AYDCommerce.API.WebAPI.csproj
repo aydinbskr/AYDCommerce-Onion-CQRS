@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\AYDCommerce.API.Infrastructure\AYDCommerce.API.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\AYDCommerce.API.Persistence\AYDCommerce.API.Persistence.csproj" />
   </ItemGroup>
 
