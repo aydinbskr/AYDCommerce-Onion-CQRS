@@ -1,4 +1,5 @@
-﻿using AYDCommerce.API.Application.Features.Products.Queries;
+﻿using AYDCommerce.API.Application.Features.Products.Commands;
+using AYDCommerce.API.Application.Features.Products.Queries;
 using AYDCommerce.API.Application.Interfaces.UnitOfWorks;
 using AYDCommerce.API.Domain.Entities;
 using Azure.Core;
@@ -23,6 +24,26 @@ namespace AYDCommerce.API.WebAPI.Controllers
         {
             var response = await _mediator.Send(new GetAllProductsRequest());
             return Ok(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateProductRequest request)
+        {
+            await _mediator.Send(request);
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(UpdateProductRequest request)
+        {
+            await _mediator.Send(request);
+            return Ok();
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete(DeleteProductRequest request)
+        {
+            await _mediator.Send(request);
+            return Ok();
         }
     }
 }

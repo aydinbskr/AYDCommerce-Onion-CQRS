@@ -38,5 +38,10 @@ namespace AYDCommerce.API.Persistence.Repositories
             await Task.Run(() => Table.Update(entity));
             return entity;
         }
+
+        public async Task HardDeleteRangeAsync(IList<T> entities)
+        {
+            await Task.Run(() => Table.RemoveRange(entities));
+        }
     }
 }

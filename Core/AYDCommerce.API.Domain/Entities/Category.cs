@@ -14,7 +14,8 @@ namespace AYDCommerce.API.Domain.Entities
         public int Priorty { get; set; }
 
         public ICollection<Detail> Details { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public ICollection<ProductCategory> ProductCategories { get; set; }
+
         public Category() { }
         public Category(int parentId, string name, int priorty)
         {
