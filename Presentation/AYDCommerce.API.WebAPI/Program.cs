@@ -1,6 +1,7 @@
 using AYDCommerce.API.Persistence;
 using AYDCommerce.API.Application;
 using AYDCommerce.API.Infrastructure;
+using AYDCommerce.API.Application.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.ConfigureExceptionHandlingMiddleware();
 app.UseAuthorization();
 
 app.MapControllers();
