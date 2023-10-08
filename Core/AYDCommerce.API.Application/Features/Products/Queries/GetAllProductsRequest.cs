@@ -39,7 +39,9 @@ namespace AYDCommerce.API.Application.Features.Products.Queries
             {
                 item.Price -= (item.Price * item.Discount / 100);
             }
-            return mappedProducts;
+            //return mappedProducts;
+
+            throw new Exception("bu bir hata mesajıdır!");
         }
     }
 }

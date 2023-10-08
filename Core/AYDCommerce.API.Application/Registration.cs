@@ -1,4 +1,5 @@
-﻿using AYDCommerce.API.Application.Interfaces.Repositories;
+﻿using AYDCommerce.API.Application.Exceptions;
+using AYDCommerce.API.Application.Interfaces.Repositories;
 using AYDCommerce.API.Application.Interfaces.UnitOfWorks;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,6 +15,8 @@ namespace AYDCommerce.API.Application
     {
         public static void AddApplication(this IServiceCollection services)
         {
+            services.AddTransient<ExceptionMiddleware>();
+
             var assembly = Assembly.GetExecutingAssembly();
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
         }
