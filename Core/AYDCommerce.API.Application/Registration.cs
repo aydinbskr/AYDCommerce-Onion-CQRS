@@ -1,9 +1,13 @@
-﻿using AYDCommerce.API.Application.Exceptions;
+﻿using AYDCommerce.API.Application.Beheviors;
+using AYDCommerce.API.Application.Exceptions;
 using AYDCommerce.API.Application.Interfaces.Repositories;
 using AYDCommerce.API.Application.Interfaces.UnitOfWorks;
+using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -15,10 +19,16 @@ namespace AYDCommerce.API.Application
     {
         public static void AddApplication(this IServiceCollection services)
         {
+            var assembly = Assembly.GetExecutingAssembly();
+
             services.AddTransient<ExceptionMiddleware>();
 
-            var assembly = Assembly.GetExecutingAssembly();
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
+
+            services.AddValidatorsFromAssembly(assembly);
+            ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("tr");
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehevior<,>));
         }
     }
 }

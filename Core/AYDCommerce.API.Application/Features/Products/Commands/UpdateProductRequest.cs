@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AYDCommerce.API.Application.Features.Products.Commands
 {
-    public class UpdateProductRequest : IRequest
+    public class UpdateProductRequest : IRequest<Unit>
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -22,7 +22,7 @@ namespace AYDCommerce.API.Application.Features.Products.Commands
         public IList<int> CategoryIds { get; set; }
     }
 
-    public class UpdateProductRequestHandler : IRequestHandler<UpdateProductRequest>
+    public class UpdateProductRequestHandler : IRequestHandler<UpdateProductRequest,Unit>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
@@ -32,7 +32,7 @@ namespace AYDCommerce.API.Application.Features.Products.Commands
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
-        public async Task Handle(UpdateProductRequest request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateProductRequest request, CancellationToken cancellationToken)
         {
             var product = await unitOfWork.GetReadRepository<Product>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
 
@@ -51,6 +51,7 @@ namespace AYDCommerce.API.Application.Features.Products.Commands
             await unitOfWork.GetWriteRepository<Product>().UpdateAsync(map);
             await unitOfWork.SaveAsync();
 
+            return Unit.Value;
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AYDCommerce.API.Application.Features.Products.Commands
 {
-    public class CreateProductRequest:IRequest
+    public class CreateProductRequest:IRequest<Unit>
     {
         public string Title { get; set; }
         public string Description { get; set; }
@@ -19,7 +19,7 @@ namespace AYDCommerce.API.Application.Features.Products.Commands
         public IList<int> CategoryIds { get; set; }
     }
 
-    public class CreateProductRequestHandler : IRequestHandler<CreateProductRequest>
+    public class CreateProductRequestHandler : IRequestHandler<CreateProductRequest,Unit>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -28,7 +28,7 @@ namespace AYDCommerce.API.Application.Features.Products.Commands
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Handle(CreateProductRequest request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateProductRequest request, CancellationToken cancellationToken)
         {
             Product product = new Product(
                 request.Title, 
@@ -55,6 +55,8 @@ namespace AYDCommerce.API.Application.Features.Products.Commands
 
                 await _unitOfWork.SaveAsync();
             }
+
+            return Unit.Value;
         }
     }
 }
