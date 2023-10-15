@@ -1,4 +1,5 @@
-﻿using AYDCommerce.API.Application.Beheviors;
+﻿using AYDCommerce.API.Application.Bases;
+using AYDCommerce.API.Application.Beheviors;
 using AYDCommerce.API.Application.Exceptions;
 using AYDCommerce.API.Application.Interfaces.Repositories;
 using AYDCommerce.API.Application.Interfaces.UnitOfWorks;
@@ -23,12 +24,26 @@ namespace AYDCommerce.API.Application
 
             services.AddTransient<ExceptionMiddleware>();
 
+            services.AddRulesFromAssemblyContaining(assembly, typeof(BaseRules));
+
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
 
             services.AddValidatorsFromAssembly(assembly);
             ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("tr");
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehevior<,>));
+        }
+
+        private static IServiceCollection AddRulesFromAssemblyContaining(
+            this IServiceCollection services,
+            Assembly assembly,
+            Type type)
+        {
+            var types = assembly.GetTypes().Where(t => t.IsSubclassOf(type) && type != t).ToList();
+            foreach (var item in types)
+                services.AddTransient(item);
+
+            return services;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AYDCommerce.API.Application.Interfaces.UnitOfWorks;
+﻿using AYDCommerce.API.Application.Features.Products.Rules;
+using AYDCommerce.API.Application.Interfaces.UnitOfWorks;
 using AYDCommerce.API.Domain.Entities;
 using MediatR;
 using System;
@@ -22,14 +23,20 @@ namespace AYDCommerce.API.Application.Features.Products.Commands
     public class CreateProductRequestHandler : IRequestHandler<CreateProductRequest,Unit>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ProductRules _productRules;
 
-        public CreateProductRequestHandler(IUnitOfWork unitOfWork)
+        public CreateProductRequestHandler(IUnitOfWork unitOfWork, ProductRules productRules)
         {
             _unitOfWork = unitOfWork;
+            _productRules = productRules;
         }
 
         public async Task<Unit> Handle(CreateProductRequest request, CancellationToken cancellationToken)
         {
+            IList<Product> products = await _unitOfWork.GetReadRepository<Product>().GetAllAsync();
+
+            await _productRules.ProductTitleMustNotBeSame(products, request.Title);
+
             Product product = new Product(
                 request.Title, 
                 request.Description,
