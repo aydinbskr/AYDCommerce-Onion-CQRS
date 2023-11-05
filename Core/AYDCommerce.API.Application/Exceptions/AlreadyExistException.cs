@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace AYDCommerce.API.Application.Exceptions
 {
-    public class NotBeSameException : BaseException
+    public class AlreadyExistException : BaseException
     {
-        public NotBeSameException(string message) : base(message) { }
+        public AlreadyExistException(string message) : base(message) { }
     }
 }
