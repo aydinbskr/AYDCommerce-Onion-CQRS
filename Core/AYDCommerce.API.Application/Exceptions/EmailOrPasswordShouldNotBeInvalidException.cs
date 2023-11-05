@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace AYDCommerce.API.Application.Exceptions
 {
-    public class NotBeSameException : BaseException
+    public class EmailOrPasswordShouldNotBeInvalidException : BaseException
     {
-        public NotBeSameException(string message) : base(message) { }
+        public EmailOrPasswordShouldNotBeInvalidException() : base("Kullanıcı adı veya şifre yanlıştır.") { }
     }
 }
