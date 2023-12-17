@@ -39,6 +39,12 @@ namespace AYDCommerce.API.Infrastructure
                     ClockSkew = TimeSpan.Zero
                 };
             });
+
+            //services.AddStackExchangeRedisCache(opt =>
+            //{
+            //    opt.Configuration = configuration["RedisCacheSettings:ConnectionString"];
+            //    opt.InstanceName = configuration["RedisCacheSettings:InstanceName"];
+            //});
         }
         public static void AddCustomMapper(this IServiceCollection services)
         {
