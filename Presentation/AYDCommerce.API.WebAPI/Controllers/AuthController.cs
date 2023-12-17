@@ -28,5 +28,26 @@ namespace AYDCommerce.API.WebAPI.Controllers
             var response = await mediator.Send(request);
             return StatusCode(StatusCodes.Status200OK, response);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> RefreshToken(RefreshTokenRequest request)
+        {
+            var response = await mediator.Send(request);
+            return StatusCode(StatusCodes.Status200OK, response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Revoke(RevokeRequest request)
+        {
+            await mediator.Send(request);
+            return StatusCode(StatusCodes.Status200OK);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RevokeAll()
+        {
+            await mediator.Send(new RevokeAllRequest());
+            return StatusCode(StatusCodes.Status200OK);
+        }
     }
 }
