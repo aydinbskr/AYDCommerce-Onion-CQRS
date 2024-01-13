@@ -29,21 +29,21 @@ namespace AYDCommerce.API.WebAPI.Controllers
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        [HttpPost]
+        [HttpPost("refreshToken")]
         public async Task<IActionResult> RefreshToken(RefreshTokenRequest request)
         {
             var response = await mediator.Send(request);
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        [HttpPost]
+        [HttpPost("revoke")]
         public async Task<IActionResult> Revoke(RevokeRequest request)
         {
             await mediator.Send(request);
             return StatusCode(StatusCodes.Status200OK);
         }
 
-        [HttpPost]
+        [HttpPost("revokeAll")]
         public async Task<IActionResult> RevokeAll()
         {
             await mediator.Send(new RevokeAllRequest());

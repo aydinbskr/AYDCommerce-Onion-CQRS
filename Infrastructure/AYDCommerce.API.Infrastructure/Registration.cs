@@ -1,5 +1,7 @@
 ﻿using AYDCommerce.API.Application.Interfaces.AutoMapper;
+using AYDCommerce.API.Application.Interfaces.RedisCache;
 using AYDCommerce.API.Application.Interfaces.Tokens;
+using AYDCommerce.API.Infrastructure.RedisCache;
 using AYDCommerce.API.Infrastructure.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +21,10 @@ namespace AYDCommerce.API.Infrastructure
         {
             services.Configure<TokenSettings>(configuration.GetSection("JWT"));
             services.AddTransient<ITokenService, TokenService>();
+
+            services.Configure<RedisCacheSettings>(configuration.GetSection("RedisCacheSettings"));
+            services.AddTransient<IRedisCacheService, RedisCacheService>();
+
 
             services.AddAuthentication(opt =>
             {
@@ -40,11 +46,11 @@ namespace AYDCommerce.API.Infrastructure
                 };
             });
 
-            //services.AddStackExchangeRedisCache(opt =>
-            //{
-            //    opt.Configuration = configuration["RedisCacheSettings:ConnectionString"];
-            //    opt.InstanceName = configuration["RedisCacheSettings:InstanceName"];
-            //});
+            services.AddStackExchangeRedisCache(opt =>
+            {
+                opt.Configuration = configuration["RedisCacheSettings:ConnectionString"];
+                opt.InstanceName = configuration["RedisCacheSettings:InstanceName"];
+            });
         }
         public static void AddCustomMapper(this IServiceCollection services)
         {

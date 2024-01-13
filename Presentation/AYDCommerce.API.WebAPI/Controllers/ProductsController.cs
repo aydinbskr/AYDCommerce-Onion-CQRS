@@ -1,4 +1,6 @@
-﻿using AYDCommerce.API.Application.Features.Products.Commands;
+﻿using AYDCommerce.API.Application.Features.Brands.Commands;
+using AYDCommerce.API.Application.Features.Brands.Queries;
+using AYDCommerce.API.Application.Features.Products.Commands;
 using AYDCommerce.API.Application.Features.Products.Queries;
 using AYDCommerce.API.Application.Interfaces.UnitOfWorks;
 using AYDCommerce.API.Domain.Entities;
@@ -46,6 +48,19 @@ namespace AYDCommerce.API.WebAPI.Controllers
         {
             await _mediator.Send(request);
             return Ok();
+        }
+
+        [HttpPost("brand")]
+        public async Task<IActionResult> CreateBrand(CreateBrandCommandRequest request)
+        {
+            await _mediator.Send(request);
+            return Ok();
+        }
+        [HttpGet("allBrands")]
+        public async Task<IActionResult> GetAllBrands()
+        {
+            var response = await _mediator.Send(new GetAllBrandsQueryRequest());
+            return Ok(response);
         }
     }
 }
